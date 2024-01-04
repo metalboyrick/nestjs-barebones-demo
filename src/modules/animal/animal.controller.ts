@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AnimalService } from './animal.service';
 import {
@@ -15,6 +16,7 @@ import {
   UpdateAnimalBodyDto,
   UpdateAnimalParamDto,
 } from './animal.dto';
+import { AuthGuard } from 'src/guards/auth';
 
 @Controller('animal')
 export class AnimalController {
@@ -26,6 +28,7 @@ export class AnimalController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   addAnimal(@Body() body: AddAnimalBodyDto): MessageDto {
     try {
       const { name, species, age } = body;
